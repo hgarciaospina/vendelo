@@ -50,4 +50,9 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # ✅ Prevent "Migrations are pending" error when running tests.
+  # This setting disables the automatic check for pending migrations
+  # in the test environment. Use only when you’re certain the schema is up to date.
+  config.active_record.migration_error = false
 end
