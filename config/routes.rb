@@ -10,4 +10,8 @@ Rails.application.routes.draw do
 
   # Mostrar producto individual
   get '/products/:id', to: 'products#show', as: :product
+
+  # Silenciar solicitudes automáticas de DevTools u otros escaneos
+  get '/.well-known/*path', to: proc { [204, {}, ['']] }
+
 end
