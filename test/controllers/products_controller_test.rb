@@ -24,7 +24,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form'
   end  
 
-  test 'allow to crate a new product' do
+  test 'allows to crate a new product' do
     post products_path, params: {
       product: {
         title: 'Nintendo 64',
@@ -35,10 +35,9 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to products_path
     assert_equal flash[:notice], 'Producto creado correctamente.'
-
   end  
 
-  test 'does not allow t to crate a new product with empty fields' do
+  test 'does not allows t to crate a new product with empty fields' do
     post products_path, params: {
       product: {
         title: '',
@@ -55,5 +54,26 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select 'form' 
-  end  
+  end
+  
+  test 'allows update a product' do
+    patch product_path(products(:ps4)), params: {
+      product: {
+        price: 165
+      }
+    } 
+
+    assert_redirected_to products_path
+    assert_equal flash[:notice], 'Producto actualizado correctamente.'
+  end
+
+  test 'does no allows update a product with an invalid field' do
+    patch product_path(products(:ps4)), params: {
+      product: {
+        price: nil
+      }
+    } 
+
+    assert_response :unprocessable_content
+  end
 end  
