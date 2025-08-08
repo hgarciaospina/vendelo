@@ -42,11 +42,18 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     post products_path, params: {
       product: {
         title: '',
-        description: 'Le altan los cables',
+        description: 'Le faltan los cables',
         price: 45
       }
     }
 
     assert_response :unprocessable_content
+  end  
+
+  test 'render an edit product form' do
+    get edit_product_path(products(:ps4))
+
+    assert_response :success
+    assert_select 'form' 
   end  
 end  
