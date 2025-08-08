@@ -1,30 +1,27 @@
 class ProductsController < ApplicationController
-  def index
-    @products = Product.all
-  end  
+  before_action :set_product, only: [:edit, :update, :show]
 
-  def show
-    @product = Product.find(params[:id])
-  end  
+  def edit
+    # @product ya está cargado por el before_action
+  end
 
-  def new
-    @product = Product.new
-  end  
-
-  def create
-    @product = Product.new(product_params)
-
-    if @product.save
-      redirect_to products_path, notice: 'Producto creado correctamente.'
+  def update
+    if @product.update(product_params)
+      redirect_to @product, notice: 'Producto actualizado correctamente.'
     else
-      render :new, status: :unprocessable_content
-    end  
-    
-  end  
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
   private
 
+  def set_product
+    @product = Product.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to products_path, alert: "Producto no encontrado."
+  end
+
   def product_params
     params.require(:product).permit(:title, :description, :price)
-  end  
-end  
+  end
+end
