@@ -1,0 +1,31 @@
+<% if product.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(product.errors.count, "error") %> impidieron guardar el producto:</h2>
+    <ul>
+      <% product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: product, local: true do |form| %>
+  <div>
+    <%= form.label :title, "Título" %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, "Descripción" %><br>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :price, "Precio" %><br>
+    <%= form.number_field :price, step: 1 %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
