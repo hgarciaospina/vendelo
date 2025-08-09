@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # Muestra la lista de productos
   def index
-    @products = Product.all
+    @products = Product.all.with_attached_photo
   end
 
   # GET /products/:id
