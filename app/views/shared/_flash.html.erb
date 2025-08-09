@@ -1,3 +1,7 @@
-<%= notice %>
-<%= alert %>
-  
+<% flash.each do |key, message| %>
+  <% if message.present? %>
+    <div class="flash <%= key %>">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
