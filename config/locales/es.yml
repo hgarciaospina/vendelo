@@ -1,0 +1,30 @@
+es:
+  app_name: "Vendelo"
+  meta_title: "Compra y vende productos de segunda mano"
+  activerecord:
+    models:
+      product: Producto
+    attributes:
+      product:
+        title: "Titulo"
+        description: "Descripción"
+        price: "Precio"
+        photo: "Foto"
+  common:
+    # Mensaje común
+    confirm: "¿Está Seguro?"
+  products:
+    # Títulos vistas
+    edit:
+      title: "Editar producto"
+    new:
+      title: "Nuevo producto"
+    index:
+      title: "Productos:"
+    # Mensajes controlador
+    create:
+      created: "Producto creado correctamente."
+    update:
+      updated: "Producto actualizado correctamente."
+    destroy:
+      destroyed: "Producto eliminado correctamente."

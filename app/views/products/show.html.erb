@@ -11,6 +11,6 @@
 <%= button_to "Eliminar producto",
               product_path(@product),
               method: :delete,
-              data: { "turbo-confirm": "¿Seguro que quieres eliminar este producto?" },
+              data: { "turbo-confirm": t("common.confirm") },
               class: "btn btn-danger" %>
 
