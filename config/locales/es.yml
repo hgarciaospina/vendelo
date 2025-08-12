@@ -4,27 +4,60 @@ es:
   activerecord:
     models:
       product: Producto
+      category: Categoría
     attributes:
       product:
         title: "Titulo"
         description: "Descripción"
         price: "Precio"
         photo: "Foto"
+      category:
+        name: "Nombre"
   common:
-    # Mensaje común
     confirm: "¿Está Seguro?"
+    back: "Volver"
+  shared:
+    header:
+      add: "Agregar producto"
+  buttons:
+    create: "Crear %{model}"
+    update: "Actualizar %{model}"
+    edit: "Editar %{model}"
+    delete: "Eliminar %{model}"
   products:
-    # Títulos vistas
     edit:
       title: "Editar producto"
     new:
       title: "Nuevo producto"
     index:
       title: "Productos:"
-    # Mensajes controlador
     create:
       created: "Producto creado correctamente."
     update:
       updated: "Producto actualizado correctamente."
     destroy:
       destroyed: "Producto eliminado correctamente."
+  categories:
+    category:
+      edit: "Editar"
+      delete: "Borrar"
+    index:
+      title: "Categorías"
+      new: "Nueva categoría"
+    edit:
+      title: "Editar categoría"
+    create:
+      created: "Categoría creada correctamente."
+    update:
+      updated: "Categoría actualizada correctamente."
+    destroy:
+      destroyed: "Categoría eliminada correctamente."
+    new:
+      title: "Nueva categoría"
+    favorites:
+      index:
+        title: "Mis favoritos"
+    user_mailer:
+      welcome:
+        subject: "Bienvenido a Vendelo"
+        welcome_message: "Hey %{username}, bienvenid@ a Vendelo. Esperemos que vendas un montón!"

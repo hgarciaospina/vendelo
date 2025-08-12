@@ -1,0 +1,24 @@
+<%= form_with(model: category) do |form| %>
+  <% if category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(category.errors.count, "error") %> impidieron guardar la categoría:</h2>
+      <ul>
+        <% category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.submit(
+          category.persisted? ?
+            t('buttons.update', model: t('activerecord.models.category')) :
+            t('buttons.create', model: t('activerecord.models.category'))
+        ) %>
+  </div>
+<% end %>
