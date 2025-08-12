@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # Muestra la lista de productos
   def index
-    @products = Product.all.with_attached_photo
+    @products = Product.all.with_attached_photo.order(created_at: :desc)
   end
 
   # GET /products/:id
@@ -78,6 +78,6 @@ class ProductsController < ApplicationController
 
   # Filtra los parámetros permitidos para crear/actualizar
   def product_params
-    params.require(:product).permit(:title, :description, :price, :photo)
+    params.require(:product).permit(:title, :description, :price, :photo, :category_id)
   end
 end

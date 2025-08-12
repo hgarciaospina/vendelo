@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class ProductsControllerTest < ActionDispatch::IntegrationTest
-  test ' render a list of products' do  
+  test 'render a list of products' do  
     get products_path
 
     assert_response :success
-    assert_select '.product', 2
+    assert_select '.product', 3
   end
   
   test 'render a detailed product page' do
@@ -24,12 +24,13 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form'
   end  
 
-  test 'allows to crate a new product' do
+  test 'allows to create a new product' do
     post products_path, params: {
       product: {
         title: 'Nintendo 64',
         description: 'Le faltan los cables',
-        price: 45
+        price: 45,
+        category_id: categories(:videogames).id
       }
     } 
 
@@ -37,7 +38,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_equal flash[:notice], 'Producto creado correctamente.'
   end  
 
-  test 'does not allows t to crate a new product with empty fields' do
+  test 'does not allow to create a new product with empty fields' do
     post products_path, params: {
       product: {
         title: '',
@@ -67,7 +68,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_equal flash[:notice], 'Producto actualizado correctamente.'
   end
 
-  test 'does no allows update a product with an invalid field' do
+  test 'does not allow update a product with an invalid field' do
     patch product_path(products(:ps4)), params: {
       product: {
         price: nil
@@ -85,4 +86,4 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to products_path
     assert_equal flash[:notice], 'Producto eliminado correctamente.'
   end  
-end  
+end
