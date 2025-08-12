@@ -4,7 +4,12 @@ class ProductsController < ApplicationController
   # GET /products
   # Muestra la lista de productos
   def index
-    @products = Product.all.with_attached_photo.order(created_at: :desc)
+    @categories = Category.all.order(name: :asc).load_async
+    @products = Product.all.with_attached_photo.order(created_at: :desc).load_async
+    if params[:category_id]
+      @products = @products.where(category_id: params[:category_id])
+    end  
+
   end
 
   # GET /products/:id

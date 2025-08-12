@@ -31,6 +31,13 @@ es:
       title: "Nuevo producto"
     index:
       title: "Productos:"
+      all: "Todos"
+      min_price: "Precio mínimo"
+      max_price: "Precio máximo"
+      query_text: "¿Qué quieres buscar?"
+      expensive: "Más caros"
+      cheapest: "Más barato"
+      newest: "Añadidos recientemente"
     create:
       created: "Producto creado correctamente."
     update:
