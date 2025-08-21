@@ -35,8 +35,8 @@ es:
       min_price: "Precio mínimo"
       max_price: "Precio máximo"
       query_text: "¿Qué quieres buscar?"
-      expensive: "Más caros"
-      cheapest: "Más barato"
+      expensive: "Más costosos"
+      cheapest: "Menos costosos"
       newest: "Añadidos recientemente"
     create:
       created: "Producto creado correctamente."
