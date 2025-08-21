@@ -11,6 +11,13 @@
 
     <%= form.number_field :max_price, placeholder: t('.max_price'), 
        onChange: 'this.form.requestSubmit()', value: params[:max_price] %>
+
+    <%= form.select :order_by, options_for_select([
+      ["Recientes", "newest"], 
+      ["Más costosos", "expensive"], 
+      ["Menos costosos", "cheapest"]],
+       params[:order_by]),  {}, 
+       {  onChange: 'this.form.requestSubmit()' }%>   
   <% end %>
 
   <%= link_to t('.all'), products_path %>

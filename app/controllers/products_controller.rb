@@ -1,14 +1,14 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [ :show, :edit, :update, :destroy ]
 
   # GET /products
   # Muestra la lista de productos
   def index
-    @categories = Category.all.order(name: :asc).load_async
-    @products = Product.all.with_attached_photo.order(created_at: :desc).load_async
+    @categories = Category.order(name: :asc).load_async
+    @products = Product.with_attached_photo
     if params[:category_id]
       @products = @products.where(category_id: params[:category_id])
-    end  
+    end
     if params[:min_price].present?
       @products = @products.where("price >=?", params[:min_price])
     end
@@ -19,6 +19,13 @@ class ProductsController < ApplicationController
       @products = @products.search_full_text(params[:query_text])
     end
 
+    order_by = {
+      newest: "created_at DESC",
+      expensive: "price DESC",
+      cheapest: "price ASC"
+    }.fetch(params[:order_by]&.to_sym, "created_at DESC")
+
+    @products = @products.order(order_by).load_async
   end
 
   # GET /products/:id
@@ -40,7 +47,7 @@ class ProductsController < ApplicationController
 
     if @product.save
       # Redirige al listado y muestra mensaje de éxito
-      redirect_to products_path, notice: t('.created')
+      redirect_to products_path, notice: t(".created")
     else
       # Si hay errores de validación, renderiza el formulario con estado HTTP 422
       render :new, status: :unprocessable_content
@@ -58,7 +65,7 @@ class ProductsController < ApplicationController
   def update
     if @product.update(product_params)
       # Redirige al listado y muestra mensaje de éxito
-      redirect_to products_path, notice: t('.updated')
+      redirect_to products_path, notice: t(".updated")
     else
       # Si hay errores de validación, renderiza el formulario con estado HTTP 422
       render :edit, status: :unprocessable_content
@@ -77,7 +84,7 @@ class ProductsController < ApplicationController
     # IMPORTANTE: Rails 8 recomienda status: :see_other para redirecciones tras DELETE
     # Esto evita que Turbo reintente la solicitud DELETE después de la redirección
     # Además, el `notice` se almacenará en `flash` y se mostrará automáticamente en la siguiente carga de página
-    redirect_to products_path, notice: t('.destroyed'), status: :see_other
+    redirect_to products_path, notice: t(".destroyed"), status: :see_other
   end
 
   private
@@ -87,7 +94,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     # Si no existe el producto, redirige al listado mostrando mensaje de alerta
-    redirect_to products_path, alert: 'Producto no encontrado.'
+    redirect_to products_path, alert: "Producto no encontrado."
   end
 
   # Filtra los parámetros permitidos para crear/actualizar
