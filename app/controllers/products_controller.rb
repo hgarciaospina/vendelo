@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
       @products = @products.search_full_text(params[:query_text])
     end
 
-    order_by = Product::ORDER_BY.fetch(params[:order_by]&.to_sym, "created_at DESC")
+    order_by = Product::ORDER_BY.fetch(params[:order_by]&.to_sym, Product::ORDER_BY[:newest])
 
     @products = @products.order(order_by).load_async
   end
